@@ -11,6 +11,19 @@ import { formTodoStore } from "~/stores/index.store";
 import dayjs from "dayjs";
 import { useState } from "react";
 import _ from "lodash";
+import { getSession } from "~/sessions";
+import { redirect } from "@remix-run/node";
+
+export async function loader({ request }) {
+  const session = await getSession(request.headers.get("Cookie"));
+  const user = session.get("userId");
+  if (!user) {
+    // Redirect to the home page if they are already signed in.
+    return redirect("/login");
+  }
+  return null;
+}
+
 export default function Index() {
   const [form, setForm, setFilterForm] = formTodoStore((e) => [
     e.form,

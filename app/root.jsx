@@ -6,6 +6,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { commitSession, getSession } from "~/sessions";
+import { redirect } from "@remix-run/node";
 
 export const meta = () => ({
   charset: "utf-8",
